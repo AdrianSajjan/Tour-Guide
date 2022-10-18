@@ -1,15 +1,13 @@
 package com.tourguide.ui.components.typography
 
+import android.graphics.Color
+import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.sp
 
 @Composable
-fun Heading(
-    text:String,
-    color:Color = Color.White,
-) {
-    Text(text, fontWeight = FontWeight.Bold, fontSize = 42.sp ,color = color)
+fun Heading(text:String, fontWeight: FontWeight?, color: Color?) {
+    val weight = if(fontWeight !== null) fontWeight else FontWeight.Bold
+    Text(text = text, style = MaterialTheme.typography.h1, fontWeight = weight)
 }
