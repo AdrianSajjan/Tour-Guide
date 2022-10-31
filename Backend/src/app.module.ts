@@ -3,7 +3,8 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from '@nestjs/config';
 import { MongooseModule } from '@nestjs/mongoose';
-import { UsersModule } from './users/users.module';
+import { UsersModule } from './Modules/users/users.module';
+import { AuthModule } from './Modules/auth/auth.module';
 import mongoDBConfig from './Config/mongodb.config';
 
 @Module({
@@ -11,6 +12,7 @@ import mongoDBConfig from './Config/mongodb.config';
     ConfigModule.forRoot(),
     MongooseModule.forRootAsync(mongoDBConfig),
     UsersModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
