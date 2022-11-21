@@ -10,9 +10,9 @@ import androidx.compose.runtime.Composable
 private val LightColorPalette = darkColors(
     primary = Orange500,
     onPrimary = Color.White,
-    surface = White100,
+    surface = Gray100,
     onSurface = Color.Black,
-    background = Gray100,
+    background = White100,
     onBackground = Color.Gray,
 )
 

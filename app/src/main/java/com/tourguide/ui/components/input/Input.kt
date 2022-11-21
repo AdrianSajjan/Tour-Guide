@@ -19,7 +19,8 @@ fun Input(value:String, placeholder: String, onValueChange: (String) -> Unit) {
         decorationBox = {
             innerTextField -> Box(modifier = Modifier.fillMaxWidth().height(56.dp)
             .background(color = MaterialTheme.colors.background, shape = MaterialTheme.shapes.large)
-            .absolutePadding(top = 18.dp, left = 24.dp, right = 24.dp),          ) {
+            .absolutePadding(top = 18.dp, left = 24.dp, right = 24.dp),
+        ) {
                 if(value.isEmpty()) {
                     Text(text = placeholder, color = Color.Gray)
                 }

@@ -1,4 +1,4 @@
-package com.tourguide.ui.screens
+package com.tourguide.ui.screens.authentication
 
 
 import androidx.compose.foundation.background
@@ -21,24 +21,18 @@ import com.tourguide.ui.components.input.Input
 import com.tourguide.ui.components.typography.Body
 import com.tourguide.ui.components.typography.Heading
 import com.tourguide.ui.components.typography.HeadingVariant
-import com.tourguide.ui.theme.FacebookTink
+import com.tourguide.ui.theme.FacebookTint
 import com.tourguide.ui.theme.GoogleTint
 import com.tourguide.ui.theme.TwitterTint
 
 @Composable
-fun RegisterScreen() {
-    val top = WindowInsets.statusBars.asPaddingValues().calculateTopPadding()
-
-    var name by remember { mutableStateOf("") }
-    var phoneNumber by remember { mutableStateOf("") }
+fun LoginScreen() {
     var emailAddress by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
 
     Surface(
         modifier = Modifier
             .fillMaxSize()
-            .absolutePadding(top = top)
-            .background(color = MaterialTheme.colors.surface)
     ) {
         Column(
             verticalArrangement = Arrangement.SpaceBetween,
@@ -53,7 +47,7 @@ fun RegisterScreen() {
                     modifier = Modifier.fillMaxWidth()
                 ) {
                     Heading(
-                        text = "Welcome",
+                        text = "Welcome Back",
                         textAlign = TextAlign.Center,
                         headingVariant = HeadingVariant.Medium
                     )
@@ -87,7 +81,7 @@ fun RegisterScreen() {
                     ) {
                         TextButton(
                             text = "Forgot Password?",
-                            color = MaterialTheme.colors.onSurface
+                            color = MaterialTheme.colors.onBackground
                         )
                     }
                 }
@@ -133,7 +127,7 @@ fun RegisterScreen() {
                             )
                         }
                         IconButton(
-                            modifier = Modifier.background(color = FacebookTink, shape = MaterialTheme.shapes.medium),
+                            modifier = Modifier.background(color = FacebookTint, shape = MaterialTheme.shapes.medium),
                             onClick = {}
                         ) {
                             Icon(

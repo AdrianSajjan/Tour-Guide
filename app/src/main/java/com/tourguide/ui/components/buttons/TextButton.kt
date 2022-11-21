@@ -12,11 +12,18 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.pointer.pointerInput
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 
 @Composable
-fun TextButton(text:String, color:Color = MaterialTheme.colors.primary, textDecoration: TextDecoration = TextDecoration.None) {
+fun TextButton(
+    text:String,
+    color:Color = MaterialTheme.colors.primary,
+    textDecoration: TextDecoration = TextDecoration.None,
+    fontWeight: FontWeight = FontWeight.Medium,
+    style: TextStyle = MaterialTheme.typography.body1,
+) {
     var isPressed by remember { mutableStateOf(false) }
     val scale = animateFloatAsState(if(isPressed) 0.9f else 1f)
 
@@ -36,6 +43,12 @@ fun TextButton(text:String, color:Color = MaterialTheme.colors.primary, textDeco
                 )
             }
     ) {
-        Text(text = text, color = color, style = MaterialTheme.typography.body1, fontWeight = FontWeight.Medium, textDecoration = textDecoration)
+        Text(
+            text = text,
+            color = color,
+            style = style,
+            fontWeight = fontWeight,
+            textDecoration = textDecoration
+        )
     }
 }

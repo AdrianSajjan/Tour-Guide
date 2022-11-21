@@ -10,6 +10,6 @@ val Gray500 = Color(0xFF252A34)
 val White100 = Color(0xFFFEFEFE)
 val Black700 = Color(0xFF05050C)
 
-val FacebookTink = Color(0xFF4267B2)
+val FacebookTint = Color(0xFF4267B2)
 val TwitterTint = Color(0xFF1DA1F2)
 val GoogleTint = Color(0xFFDB4437)
