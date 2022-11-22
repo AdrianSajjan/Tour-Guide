@@ -17,7 +17,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun PrimaryButton(text:String) {
+fun PrimaryButton(text:String, onClick: () -> Unit) {
     var isPressed by remember { mutableStateOf(false)}
     val scale = animateFloatAsState(if(isPressed) 0.95f else 1f)
 
@@ -35,6 +35,7 @@ fun PrimaryButton(text:String) {
                             awaitRelease();
                         } finally {
                             isPressed = false;
+                            onClick();
                         }
                     }
                 )

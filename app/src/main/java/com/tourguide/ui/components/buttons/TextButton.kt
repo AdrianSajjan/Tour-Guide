@@ -23,6 +23,7 @@ fun TextButton(
     textDecoration: TextDecoration = TextDecoration.None,
     fontWeight: FontWeight = FontWeight.Medium,
     style: TextStyle = MaterialTheme.typography.body1,
+    onClick: () -> Unit,
 ) {
     var isPressed by remember { mutableStateOf(false) }
     val scale = animateFloatAsState(if(isPressed) 0.9f else 1f)
@@ -38,6 +39,7 @@ fun TextButton(
                             awaitRelease()
                         } finally {
                             isPressed = false
+                            onClick()
                         }
                     }
                 )

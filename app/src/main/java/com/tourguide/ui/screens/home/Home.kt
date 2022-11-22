@@ -3,10 +3,13 @@ package com.tourguide.ui.screens.home
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
@@ -22,32 +25,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
-import com.tourguide.models.Country
-import com.tourguide.models.Spot
+import com.google.accompanist.systemuicontroller.rememberSystemUiController
 import com.tourguide.ui.components.buttons.TextButton
+import com.tourguide.ui.components.cards.PopularCountryCard
 import com.tourguide.ui.components.input.SearchBar
-import com.tourguide.ui.components.typography.Body
-import com.tourguide.ui.components.typography.Heading
-import com.tourguide.ui.components.typography.HeadingVariant
+import com.tourguide.ui.components.typography.*
+import com.tourguide.utils.Constants
 
 @Composable
 fun HomeScreen() {
-
     var searchText by remember { mutableStateOf("") }
-
-    val countries = listOf<Country>(
-        Country(imageURL = "https://cdn.britannica.com/56/10256-050-7F90918D/immigrants-country-Statue-of-Liberty-glimpses-Upper.jpg", name = "USA"),
-        Country(imageURL = "https://images.unsplash.com/photo-1537996194471-e657df975ab4", name = "Indonesia"),
-        Country(imageURL = "https://i.natgeofe.com/k/c41b4f59-181c-4747-ad20-ef69987c8d59/eiffel-tower-night_2x3.jpg", name = "France"),
-        Country(imageURL = "https://whc.unesco.org/uploads/thumbs/site_0252_0008-750-750-20151104113424.jpg", name = "India")
-    )
-
-    val spots = listOf<Spot> (
-        Spot(imageURL = "https://whc.unesco.org/uploads/thumbs/site_0252_0008-750-750-20151104113424.jpg", name="Taj Mahal", price = "$24", location = "Agra, India", tourPackage = "3 days 2 nights"),
-        Spot(imageURL = "https://whc.unesco.org/uploads/thumbs/site_0252_0008-750-750-20151104113424.jpg", name="Taj Mahal", price = "$24", location = "Agra, India", tourPackage = "3 days 2 nights"),
-        Spot(imageURL = "https://whc.unesco.org/uploads/thumbs/site_0252_0008-750-750-20151104113424.jpg", name="Taj Mahal", price = "$24", location = "Agra, India", tourPackage = "3 days 2 nights"),
-    )
-
 
     Surface(
         modifier = Modifier
@@ -56,6 +43,7 @@ fun HomeScreen() {
         Column(
             modifier = Modifier
                 .fillMaxSize()
+                .verticalScroll(state = rememberScrollState())
                 .padding(vertical = 16.dp)
         ) {
             Row(
@@ -144,12 +132,13 @@ fun HomeScreen() {
                     text = "See All",
                     color = MaterialTheme.colors.onBackground,
                     fontWeight = FontWeight.Normal,
-                    style = MaterialTheme.typography.body2
+                    style = MaterialTheme.typography.body2,
+                    onClick = {}
                 )
             }
 
             Spacer(
-                modifier = Modifier.height(12.dp)
+                modifier = Modifier.height(16.dp)
             )
 
             LazyRow(
@@ -162,34 +151,8 @@ fun HomeScreen() {
                         modifier = Modifier.width(0.dp)
                     )
                 }
-                items(items = countries, itemContent = { country ->
-                        Row(
-                            modifier = Modifier
-                                .background(
-                                    color = MaterialTheme.colors.background,
-                                    shape = MaterialTheme.shapes.large
-                                )
-                                .padding(start = 8.dp, top = 8.dp, bottom = 8.dp, end = 16.dp),
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.spacedBy(12.dp)
-                        ) {
-                            Image(
-                                painter = rememberAsyncImagePainter(
-                                    model = ImageRequest.Builder(LocalContext.current)
-                                        .data(country.imageURL)
-                                        .crossfade(true)
-                                        .build()
-                                ),
-                                contentScale = ContentScale.FillWidth,
-                                contentDescription = country.name,
-                                modifier = Modifier
-                                    .size(36.dp)
-                                    .clip(shape = MaterialTheme.shapes.medium),
-                            )
-                            Body(
-                                text = country.name
-                            )
-                        }
+                items(items = Constants.Countries, itemContent = { country ->
+                        PopularCountryCard(country = country)
                     }
                 )
                 item {
@@ -219,12 +182,13 @@ fun HomeScreen() {
                     text = "See All",
                     color = MaterialTheme.colors.onBackground,
                     fontWeight = FontWeight.Normal,
-                    style = MaterialTheme.typography.body2
+                    style = MaterialTheme.typography.body2,
+                    onClick = {}
                 )
             }
 
             Spacer(
-                modifier = Modifier.height(12.dp),
+                modifier = Modifier.height(16.dp),
             )
 
             LazyRow(
@@ -237,14 +201,148 @@ fun HomeScreen() {
                         modifier = Modifier.width(0.dp)
                     )
                 }
-                items(items = spots, itemContent = { spot ->
+                items(items = Constants.Spots, itemContent = { spot ->
                     Column(
                         modifier = Modifier
                             .background(
                                 color = MaterialTheme.colors.background,
                                 shape = MaterialTheme.shapes.large
                             )
-                            .padding(start = 10.dp, top = 10.dp, bottom = 18.dp, end = 10.dp),
+                            .padding(start = 10.dp, top = 10.dp, bottom = 14.dp, end = 10.dp),
+                    ) {
+                        Box {
+                            Image(
+                                painter = rememberAsyncImagePainter(
+                                    model = ImageRequest.Builder(LocalContext.current)
+                                        .data(spot.imageURL)
+                                        .crossfade(true)
+                                        .build()
+                                ),
+                                contentScale = ContentScale.FillWidth,
+                                contentDescription = spot.name,
+                                modifier = Modifier
+                                    .height(140.dp)
+                                    .width(200.dp)
+                                    .clip(shape = MaterialTheme.shapes.medium),
+                            )
+                            Row (
+                                horizontalArrangement = Arrangement.End,
+                                modifier = Modifier
+                                    .width(200.dp)
+                                    .padding(all = 8.dp)
+                            ) {
+                                Row(
+                                    verticalAlignment = Alignment.CenterVertically,
+                                    modifier = Modifier
+                                        .background(
+                                            color = MaterialTheme.colors.background,
+                                            shape = MaterialTheme.shapes.small
+                                        )
+                                        .padding(vertical = 4.dp, horizontal = 8.dp)
+                                ) {
+                                    Icon(
+                                        imageVector = Icons.Outlined.LocationOn,
+                                        contentDescription = "Location",
+                                        tint = MaterialTheme.colors.primary,
+                                        modifier = Modifier.size(12.dp)
+                                    )
+                                    Spacer(
+                                        modifier = Modifier.width(2.dp)
+                                    )
+                                    Caption(
+                                        text = spot.location,
+                                        color = MaterialTheme.colors.primary
+                                    )
+                                }
+                            }
+                        }
+
+                        Spacer(
+                            modifier = Modifier.height(8.dp)
+                        )
+
+                        Row (
+                            modifier = Modifier
+                                .width(200.dp)
+                                .padding(horizontal = 4.dp),
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.SpaceBetween,
+                        ) {
+                            Column(
+                                verticalArrangement = Arrangement.spacedBy((-2).dp)
+                            ) {
+                                Heading(
+                                    text = spot.name,
+                                    headingVariant = HeadingVariant.Small,
+                                    fontWeight = FontWeight.Medium
+                                )
+                                Body(
+                                    text = spot.tourPackage,
+                                    bodyVariant = BodyVariant.Secondary
+                                )
+                            }
+                            Heading(
+                                text = spot.price,
+                                headingVariant = HeadingVariant.Small,
+                                fontWeight = FontWeight.Bold,
+                                color = MaterialTheme.colors.primary
+                            )
+                        }
+                    }
+                })
+                item {
+                    Spacer(
+                        modifier = Modifier.width(0.dp)
+                    )
+                }
+            }
+
+            Spacer(
+                modifier = Modifier.height(24.dp),
+            )
+
+            Row (
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 24.dp),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                Heading(
+                    text = "On Budget Tour",
+                    headingVariant = HeadingVariant.Small,
+                    fontWeight = FontWeight.Medium
+                )
+                TextButton(
+                    text = "See All",
+                    color = MaterialTheme.colors.onBackground,
+                    fontWeight = FontWeight.Normal,
+                    style = MaterialTheme.typography.body2,
+                    onClick = {}
+                )
+            }
+
+            Spacer(
+                modifier = Modifier.height(16.dp),
+            )
+
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 24.dp),
+                verticalArrangement = Arrangement.spacedBy(24.dp)
+            ) {
+                Constants.OnBudgetTours.forEach { spot ->
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .background(
+                                color = MaterialTheme.colors.background,
+                                shape = MaterialTheme.shapes.large
+                            )
+                            .padding(all = 10.dp),
+                        horizontalArrangement = Arrangement.SpaceBetween,
+                        verticalAlignment = Alignment.CenterVertically,
                     ) {
                         Image(
                             painter = rememberAsyncImagePainter(
@@ -256,28 +354,61 @@ fun HomeScreen() {
                             contentScale = ContentScale.FillWidth,
                             contentDescription = spot.name,
                             modifier = Modifier
-                                .height(140.dp)
-                                .width(180.dp)
+                                .height(70.dp)
+                                .width(80.dp)
                                 .clip(shape = MaterialTheme.shapes.medium),
                         )
 
                         Spacer(
-                            modifier = Modifier.height(8.dp)
+                            modifier = Modifier.width(16.dp)
                         )
 
-                        Column {
+                        Column(
+                            modifier = Modifier.weight(1f).fillMaxHeight(),
+                            verticalArrangement = Arrangement.SpaceBetween,
+                        ) {
+                            Row(
+                                horizontalArrangement = Arrangement.End,
+                                verticalAlignment = Alignment.CenterVertically,
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Outlined.LocationOn,
+                                    contentDescription = "Location",
+                                    tint = MaterialTheme.colors.primary,
+                                    modifier = Modifier.size(12.dp)
+                                )
+                                Spacer(
+                                    modifier = Modifier.width(2.dp)
+                                )
+                                Caption(
+                                    text = spot.location,
+                                    color = MaterialTheme.colors.primary
+                                )
+                            }
+                            Spacer(
+                                modifier = Modifier.height(8.dp)
+                            )
                             Heading(
                                 text = spot.name,
                                 headingVariant = HeadingVariant.Small,
                                 fontWeight = FontWeight.Medium
                             )
+                            Body(
+                                text = spot.tourPackage,
+                                bodyVariant = BodyVariant.Secondary
+                            )
+                        }
+                        Box(
+                            modifier = Modifier.padding(end = 4.dp)
+                        ) {
+                            Heading(
+                                text = spot.price,
+                                headingVariant = HeadingVariant.Small,
+                                fontWeight = FontWeight.Bold,
+                                color = MaterialTheme.colors.primary
+                            )
                         }
                     }
-                })
-                item {
-                    Spacer(
-                        modifier = Modifier.width(0.dp)
-                    )
                 }
             }
         }

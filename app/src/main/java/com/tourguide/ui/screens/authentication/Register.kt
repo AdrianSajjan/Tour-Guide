@@ -26,7 +26,10 @@ import com.tourguide.ui.theme.GoogleTint
 import com.tourguide.ui.theme.TwitterTint
 
 @Composable
-fun RegisterScreen() {
+fun RegisterScreen(
+    onNavigateToLogin: () -> Unit,
+    onNavigateToHome: () -> Unit,
+) {
     
     var name by remember { mutableStateOf("") }
     var phoneNumber by remember { mutableStateOf("") }
@@ -98,7 +101,8 @@ fun RegisterScreen() {
                     horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
                     PrimaryButton(
-                        text = "Sign Up"
+                        text = "Sign Up",
+                        onClick = onNavigateToHome
                     )
                     Body(
                         text = "Or continue with",
@@ -155,7 +159,8 @@ fun RegisterScreen() {
                         text = "Already have an account?"
                     )
                     TextButton(
-                        text = "Sign In"
+                        text = "Sign In",
+                        onClick = onNavigateToLogin
                     )
                 }
             }
