@@ -1,7 +1,7 @@
+import { ApiProperty } from '@nestjs/swagger';
 import {
   IsEmail,
   IsNotEmpty,
-  IsOptional,
   MaxLength,
   MinLength,
   Validate,
@@ -23,27 +23,35 @@ export class CustomMatchPasswords implements ValidatorConstraintInterface {
   }
 }
 
-export class newUserDto {
+export class NewUserDto {
+  @ApiProperty({
+    example: 'John@gmail.com',
+  })
   @IsNotEmpty()
   @IsEmail()
   email: string;
 
+  @ApiProperty({
+    example: 'John Doe',
+  })
   @IsNotEmpty()
-  frist_name: string;
+  name: string;
 
-  @IsOptional()
-  middle_name: string;
-
-  @IsOptional()
-  last_name: string;
-
+  @ApiProperty({
+    example: 'Password@123',
+  })
   @IsNotEmpty()
   @MinLength(6)
   @MaxLength(14)
   password: string;
 
+  @ApiProperty({
+    example: 'Password@123',
+  })
   @Validate(CustomMatchPasswords, ['password'])
   passwordConfirm: string;
+
+  refreshToken: string;
 
   Role = 'user';
 }

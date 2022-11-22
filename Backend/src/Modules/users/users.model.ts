@@ -1,11 +1,12 @@
 import * as mongoose from 'mongoose';
 import * as bcrypt from 'bcrypt';
-import appConfig from 'src/Config/app.config';
+// import appConfig from 'src/Config/app.config';
 
-export interface User extends mongoose.Document {
+export interface UserDocument extends mongoose.Document {
   _id: string;
   email: string;
   password: string;
+  refreshToken: string;
   comarePassword: (userPassword: string) => Promise<boolean>;
 }
 
@@ -16,15 +17,9 @@ export const UserSchema = new mongoose.Schema(
       required: true,
       unique: true,
     },
-    frist_name: {
+    name: {
       type: String,
       require,
-    },
-    middle_name: {
-      type: String,
-    },
-    last_name: {
-      type: String,
     },
     password: {
       type: String,
@@ -33,19 +28,24 @@ export const UserSchema = new mongoose.Schema(
     passwordConfirm: {
       type: String,
     },
+    refreshToken: {
+      type: String,
+      select: false,
+    },
     Role: {
       type: String,
       enum: ['user', 'admin'],
       default: 'user',
+      select: false,
     },
   },
-  { timestamps: true },
+  { timestamps: true, versionKey: false },
 );
 UserSchema.pre('save', async function (next) {
-  if (!this.isModified('password')) {
-    return next();
-  }
-  this.password = await bcrypt.hash(this.password, appConfig().SALTROUNDS);
+  // if (!this.isModified('password')) {
+  //   return next();
+  // }
+  // this.password = await bcrypt.hash(this.password, appConfig().SALTROUNDS);
   this.passwordConfirm = undefined;
   next();
 });

@@ -3,9 +3,10 @@ import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import jwtConfig from 'src/Config/jwt.config';
 import { UsersModule } from '../users/users.module';
+import { AuthCoontroller } from './auth.controller';
 import { AuthService } from './auth.service';
-import { JwtStrategy } from './Strategy/jwt.strategy';
-import { LocalStrategy } from './Strategy/local.strategy';
+import { JwtStrategyAccessToken } from './Strategy/jwtAccessToken.strategy';
+import { JwtStrategyRefreshToken } from './Strategy/jwtRefreshToken.strategy';
 
 @Module({
   imports: [
@@ -13,7 +14,8 @@ import { LocalStrategy } from './Strategy/local.strategy';
     PassportModule,
     JwtModule.registerAsync(jwtConfig),
   ],
-  providers: [AuthService, LocalStrategy, JwtStrategy],
+  providers: [AuthService, JwtStrategyAccessToken, JwtStrategyRefreshToken],
+  controllers: [AuthCoontroller],
   exports: [AuthService],
 })
 export class AuthModule {}
