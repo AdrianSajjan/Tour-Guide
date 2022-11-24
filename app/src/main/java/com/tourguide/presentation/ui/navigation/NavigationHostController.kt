@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
+import androidx.navigation.NavOptions
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.tourguide.presentation.ui.details.TourDetailScreen
@@ -20,7 +21,7 @@ fun NavigationHostController(
 ) {
     NavHost(
         navController = navigationController,
-        startDestination = "Details",
+        startDestination = "Home",
         modifier = Modifier.padding(padding),
         builder = {
             composable("Onboard") {
@@ -51,10 +52,20 @@ fun NavigationHostController(
                 )
             }
             composable("Home") {
-                HomeScreen()
+                HomeScreen(
+                    onNavigateToDetails = { id ->
+                        navigationController.navigate("Details/$id")
+                    }
+                )
             }
-            composable("Details") {
-                TourDetailScreen()
+            composable("Details/{id}") { stack ->
+                val id = stack.arguments?.getString("id");
+                TourDetailScreen(
+                    id = id!!,
+                    onNavigateToPrevious = {
+                        navigationController.popBackStack()
+                    }
+                )
             }
         }
     )

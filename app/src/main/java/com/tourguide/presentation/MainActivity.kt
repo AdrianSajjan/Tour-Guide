@@ -23,9 +23,9 @@ class MainActivity : ComponentActivity() {
 
                 Scaffold(
                     bottomBar = {
-                        BottomNavigationBar(
-                            navigationController = navigationController
-                        )
+                        //BottomNavigationBar(
+                        //    navigationController = navigationController
+                        //)
                     },
                     content = { padding ->
                         NavigationHostController(

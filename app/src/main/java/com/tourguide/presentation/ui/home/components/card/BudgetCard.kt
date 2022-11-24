@@ -1,16 +1,20 @@
 package com.tourguide.presentation.ui.home.components.card
 
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.LocationOn
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.scale
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
@@ -22,16 +26,34 @@ import com.tourguide.presentation.ui.components.typography.*
 
 @Composable
 fun BudgetCard(
-    tour:Tour
+    tour:Tour,
+    onClick: (String) -> Unit
 ) {
+    var isPressed by remember { mutableStateOf(false) }
+    val scale = animateFloatAsState(if(isPressed) 0.95f else 1f)
+
     Row(
         modifier = Modifier
-            .fillMaxWidth()
+            .scale(scale.value)
+            .pointerInput(Unit) {
+                detectTapGestures(
+                    onPress = {
+                        try {
+                            isPressed = true
+                            awaitRelease()
+                        } finally {
+                            isPressed = false
+                            onClick(tour.name)
+                        }
+                    }
+                )
+            }
             .background(
                 color = MaterialTheme.colors.background,
                 shape = MaterialTheme.shapes.large
             )
-            .padding(all = 10.dp),
+            .padding(all = 10.dp)
+            .fillMaxWidth(),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically,
     ) {
@@ -74,7 +96,7 @@ fun BudgetCard(
                     modifier = Modifier.width(2.dp)
                 )
                 Caption(
-                    text = String.format("%s, %s", tour.state, tour.country),
+                    text = "${tour.state}, ${tour.country}",
                     color = MaterialTheme.colors.primary
                 )
             }
@@ -95,7 +117,7 @@ fun BudgetCard(
             modifier = Modifier.padding(end = 4.dp)
         ) {
             Body (
-                text = String.format("%s %s", tour.currencyDisplay, String.format("%1$,.2f",  tour.price)),
+                text = "${tour.currencyDisplay} ${String.format("%1$,.2f",  tour.price)}",
                 bodyVariant = BodyVariant.Secondary,
                 fontWeight = FontWeight.Medium,
                 color = MaterialTheme.colors.primary

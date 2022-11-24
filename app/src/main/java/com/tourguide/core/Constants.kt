@@ -24,7 +24,8 @@ object Constants {
             currencyDisplay = "₹",
             currencyName = "INR",
             tourPackage = "3 days 2 nights",
-            images = listOf("")
+            images = listOf(""),
+            description = "Bali is a province of Indonesia and the westernmost of the Lesser Sunda Islands. East of Java and west of Lombok, the province includes the island of Bali and a few smaller neighbouring islands, Nusa Penida, Nusa Lembongan, and Nusa Ceningan to the southeast.",
         ),
         Tour(
             thumbnail = "https://images.unsplash.com/photo-1537996194471-e657df975ab4",
@@ -36,6 +37,7 @@ object Constants {
             price = 44000.0,
             currencyDisplay = "₹",
             currencyName = "INR",
+            description = "Bali is a province of Indonesia and the westernmost of the Lesser Sunda Islands. East of Java and west of Lombok, the province includes the island of Bali and a few smaller neighbouring islands, Nusa Penida, Nusa Lembongan, and Nusa Ceningan to the southeast.",
         ),
         Tour(
             thumbnail = "https://i.natgeofe.com/k/c41b4f59-181c-4747-ad20-ef69987c8d59/eiffel-tower-night_2x3.jpg",
@@ -46,7 +48,8 @@ object Constants {
             price = 56000.0,
             state = "Paris",
             country = "France",
-            tourPackage = "6 days 5 nights"
+            tourPackage = "6 days 5 nights",
+            description = "Bali is a province of Indonesia and the westernmost of the Lesser Sunda Islands. East of Java and west of Lombok, the province includes the island of Bali and a few smaller neighbouring islands, Nusa Penida, Nusa Lembongan, and Nusa Ceningan to the southeast.",
         ),
         Tour(
             thumbnail = "https://whc.unesco.org/uploads/thumbs/site_0252_0008-750-750-20151104113424.jpg",
@@ -57,7 +60,8 @@ object Constants {
             tourPackage = "3 days 2 nights",
             country = "India",
             state = "Agra",
-            price = 7000.0
+            price = 7000.0,
+            description = "Bali is a province of Indonesia and the westernmost of the Lesser Sunda Islands. East of Java and west of Lombok, the province includes the island of Bali and a few smaller neighbouring islands, Nusa Penida, Nusa Lembongan, and Nusa Ceningan to the southeast.",
         )
     )
 
@@ -69,10 +73,10 @@ object Constants {
             route = "Home",
         ),
         BottomNavigationItem(
-            label = "Details",
+            label = "Timeline",
             iconActive = Icons.Filled.List,
             iconInactive = Icons.Outlined.List,
-            route = "Details",
+            route = "Timeline",
         ),
         BottomNavigationItem(
             label = "Wishlist",

@@ -19,9 +19,11 @@ import com.tourguide.presentation.ui.home.components.card.SpotCard
 import com.tourguide.presentation.ui.home.components.header.ScreenHeader
 import com.tourguide.presentation.ui.home.components.header.SectionHeader
 
-@Preview
+
 @Composable
-fun HomeScreen() {
+fun HomeScreen(
+    onNavigateToDetails:(String) -> Unit
+) {
     var searchText by remember { mutableStateOf("") }
 
     Surface(
@@ -75,7 +77,7 @@ fun HomeScreen() {
             ) {
                 item { Spacer(modifier = Modifier.width(0.dp)) }
                 items(items = Constants.Tours, itemContent = { tour ->
-                    SpotCard(tour = tour)
+                    SpotCard(tour = tour, onClick = onNavigateToDetails)
                 })
                 item { Spacer(modifier = Modifier.width(0.dp)) }
             }
@@ -91,7 +93,7 @@ fun HomeScreen() {
                 verticalArrangement = Arrangement.spacedBy(12.dp)
             ) {
                 Constants.Tours.forEach { tour ->
-                    BudgetCard(tour = tour)
+                    BudgetCard(tour = tour , onClick = onNavigateToDetails)
                 }
             }
         }

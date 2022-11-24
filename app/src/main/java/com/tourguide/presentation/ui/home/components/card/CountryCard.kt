@@ -1,16 +1,17 @@
 package com.tourguide.presentation.ui.home.components.card
 
+import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.gestures.detectTapGestures
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.draw.scale
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
@@ -21,10 +22,29 @@ import com.tourguide.presentation.ui.components.typography.Body
 
 @Composable
 fun CountryCard(
-    tour: Tour
+    tour: Tour,
+    //onClick: () -> Unit
 ) {
+    var isPressed by remember { mutableStateOf(false) }
+    val scale = animateFloatAsState(if(isPressed) 0.95f else 1f)
+
     Row(
         modifier = Modifier
+            .width(intrinsicSize = IntrinsicSize.Max)
+            .scale(scale.value)
+            .pointerInput(Unit) {
+                detectTapGestures(
+                    onPress = {
+                        try {
+                            isPressed = true
+                            awaitRelease()
+                        } finally {
+                            isPressed = false
+                            //onClick(tour.name)
+                        }
+                    }
+                )
+            }
             .background(
                 color = MaterialTheme.colors.background,
                 shape = MaterialTheme.shapes.large
