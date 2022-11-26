@@ -11,7 +11,6 @@ import { AuthService } from '../auth/auth.service';
 import { User } from '../auth/Decorators/User.Decorator';
 import { JwtAccessTokenGuard } from './Gaurds/jwtAccesssToken.auth.gaurd';
 import { NewUserDto } from '../users/Dto/newUser.Dto';
-import { UserDocument } from '../users/users.model';
 import { UsersService } from '../users/users.service';
 import AuthDto from './Dto/auth.dto';
 import {
@@ -19,9 +18,10 @@ import {
   ApiCreatedResponse,
   ApiTags,
 } from '@nestjs/swagger';
+import { User as UserType } from '@prisma/client';
 // import { JwtRefreshTokenGuard } from './Gaurds/jwtRefreshToken.auth.gard';
 
-@Controller('auth')
+@Controller()
 @ApiTags('Auth')
 export class AuthCoontroller {
   constructor(
@@ -42,7 +42,7 @@ export class AuthCoontroller {
   }
   @UseGuards(JwtAccessTokenGuard)
   @Get('profile')
-  async profile(@User() user: UserDocument) {
+  async profile(@User() user: UserType) {
     return {
       user: user,
     };

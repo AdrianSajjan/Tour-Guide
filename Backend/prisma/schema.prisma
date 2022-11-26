@@ -1,0 +1,99 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id              String    @id @default(uuid())
+  name            String
+  email           String    @unique
+  password        String
+  passwordConfirm String
+  Role            String    @default("user")
+  refreshToken    String?
+  Reviews         Reviews[]
+}
+
+enum Role {
+  user
+  admin
+}
+
+model Images {
+  imageId  String @id @default(uuid())
+  imageUrl String
+  tourName String
+  Tour     Tour   @relation(fields: [tourId], references: [id])
+  tourId   String
+}
+
+model Location {
+  id            String          @id @default(uuid())
+  description   String
+  longitude     Float
+  latitude      Float
+  address       String?
+  TourLocations TourLocations[]
+  Tour          Tour?
+}
+
+model TourLocations {
+  tourId     String
+  Day        Int?
+  tour       Tour     @relation(fields: [tourId], references: [id], onDelete: Cascade)
+  location   Location @relation(fields: [locationId], references: [id], onDelete: Cascade)
+  locationId String
+
+  @@id([tourId, locationId])
+}
+
+model tourDates {
+  id     String   @id @default(uuid())
+  time   DateTime
+  tour   Tour     @relation(fields: [tourId], references: [id])
+  tourId String
+}
+
+model Tour {
+  id              String          @id @default(uuid())
+  name            String          @unique
+  duration        Int
+  maxGroupSize    Int
+  difficulty      String
+  ratingsAverage  Decimal         @default(4.5)
+  ratingsQuantity Int             @default(0)
+  price           Int
+  priceDiscount   Int?
+  summary         String
+  description     String
+  imageCover      String?
+  images          Images[]
+  startLocation   Location?       @relation(fields: [locationId], references: [id])
+  locationId      String          @unique
+  TourLocations   TourLocations[]
+  Reviews         Reviews[]
+  startDates      tourDates[]
+}
+
+model Reviews {
+  id     String @id @default(uuid())
+  review String
+  rating Int
+  userId String
+  tourId String
+  user   User   @relation(fields: [userId], references: [id])
+  tour   Tour   @relation(fields: [tourId], references: [id])
+}
+
+enum difficulty {
+  easy
+  medium
+  difficulty
+}

@@ -11,7 +11,7 @@ import { NewUserDto } from '../users/Dto/newUser.Dto';
 import { hash, compare } from 'bcrypt';
 import appConfig from 'src/Config/app.config';
 import AuthDto from './Dto/auth.dto';
-import { UserDocument } from '../users/users.model';
+import { User } from '@prisma/client';
 
 @Injectable()
 export class AuthService {
@@ -113,7 +113,7 @@ export class AuthService {
     };
   }
   sentdResponseWithToken(
-    user: UserDocument,
+    user: User,
     tokens: { accessToken: string; refreshToken: string },
   ) {
     return {
