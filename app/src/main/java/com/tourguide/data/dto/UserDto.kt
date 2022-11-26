@@ -1,6 +1,5 @@
 package com.tourguide.data.dto
 
-import com.google.gson.annotations.SerializedName
 import com.tourguide.domain.model.User
 
 data class UserDto(

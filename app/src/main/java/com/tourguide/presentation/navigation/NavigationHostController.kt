@@ -5,14 +5,13 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
-import androidx.navigation.NavOptions
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.tourguide.presentation.details.TourDetailScreen
 import com.tourguide.presentation.login.LoginScreen
 import com.tourguide.presentation.onboard.OnboardScreen
 import com.tourguide.presentation.register.RegisterScreen
-import com.tourguide.presentation.ui.home.HomeScreen
+import com.tourguide.presentation.home.HomeScreen
 
 @Composable
 fun NavigationHostController(

@@ -1,6 +1,5 @@
-package com.tourguide.domain.use_case.get_tours
+package com.tourguide.domain.use_case.get_budget_tours
 
-import android.util.Log
 import com.tourguide.core.common.Resource
 import com.tourguide.data.dto.toTour
 import com.tourguide.domain.model.Tour
@@ -11,13 +10,13 @@ import retrofit2.HttpException
 import java.io.IOException
 import javax.inject.Inject
 
-class GetToursUseCase @Inject constructor(
-  private val repository: TourRepository
+class GetBudgetToursUseCase @Inject constructor(
+    private val repository: TourRepository
 ) {
     operator fun invoke(): Flow<Resource<List<Tour>>> = flow {
         try {
             emit(Resource.Loading())
-            val tours = repository.listOfTours().map { it.toTour() }
+            val tours = repository.listOfBudgetTours().map { it.toTour() }
             emit(Resource.Success(tours))
         } catch (e : HttpException) {
             emit(Resource.Error(e.localizedMessage ?: "An unexpected error occurred."))
@@ -26,4 +25,3 @@ class GetToursUseCase @Inject constructor(
         }
     }
 }
-

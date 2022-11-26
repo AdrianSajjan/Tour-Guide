@@ -33,9 +33,9 @@ fun PrimaryButton(text:String, onClick: () -> Unit) {
                         try {
                             isPressed = true;
                             awaitRelease();
+                            onClick();
                         } finally {
                             isPressed = false;
-                            onClick();
                         }
                     }
                 )

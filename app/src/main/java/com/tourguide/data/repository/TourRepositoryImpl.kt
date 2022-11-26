@@ -12,6 +12,10 @@ class TourRepositoryImpl @Inject constructor(
         return api.listOfTours()
     }
 
+    override suspend fun listOfBudgetTours(): List<TourDto> {
+        return api.listOfBudgetTours()
+    }
+
     override suspend fun tourDetailsById(id: String): TourDto {
         return api.tourDetailsById(id)
     }

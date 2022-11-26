@@ -10,7 +10,9 @@ import androidx.navigation.compose.rememberNavController
 import com.tourguide.presentation.navigation.components.BottomNavigationBar
 import com.tourguide.presentation.navigation.NavigationHostController
 import com.tourguide.presentation.ui.theme.TourGuideTheme
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

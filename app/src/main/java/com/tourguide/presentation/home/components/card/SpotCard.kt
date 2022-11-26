@@ -21,6 +21,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
+import com.tourguide.core.common.Constants
 import com.tourguide.domain.model.Tour
 import com.tourguide.presentation.ui.components.typography.*
 
@@ -42,16 +43,16 @@ fun SpotCard(
                         try {
                             isPressed = true
                             awaitRelease()
+                            onClick(tour.name)
                         } finally {
                             isPressed = false
-                            onClick(tour.name)
                         }
                     }
                 )
             }
             .background(
-            color = MaterialTheme.colors.background,
-            shape = MaterialTheme.shapes.large
+                color = MaterialTheme.colors.background,
+                shape = MaterialTheme.shapes.large
             )
             .padding(start = 10.dp, top = 10.dp, bottom = 14.dp, end = 10.dp)
     ) {
@@ -61,7 +62,7 @@ fun SpotCard(
             Image(
                 painter = rememberAsyncImagePainter(
                     model = ImageRequest.Builder(LocalContext.current)
-                        .data(tour.thumbnail)
+                        .data(Constants.TourPicturesBaseUrl + tour.thumbnail)
                         .crossfade(true)
                         .build()
                 ),
@@ -98,7 +99,7 @@ fun SpotCard(
                         modifier = Modifier.width(2.dp)
                     )
                     Caption(
-                        text = tour.startLocation.address,
+                        text = tour.startLocation.description,
                         color = MaterialTheme.colors.primary
                     )
                 }
@@ -121,6 +122,10 @@ fun SpotCard(
                     text = tour.name,
                     headingVariant = HeadingVariant.Small,
                     fontWeight = FontWeight.Medium
+                )
+                Body(
+                    text = "Duration - ${tour.duration} days",
+                    bodyVariant = BodyVariant.Secondary,
                 )
             }
             Spacer(modifier = Modifier.width(24.dp))

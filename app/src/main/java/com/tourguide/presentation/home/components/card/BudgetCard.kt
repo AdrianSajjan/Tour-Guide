@@ -41,9 +41,9 @@ fun BudgetCard(
                         try {
                             isPressed = true
                             awaitRelease()
+                            onClick(tour.name)
                         } finally {
                             isPressed = false
-                            onClick(tour.name)
                         }
                     }
                 )
@@ -79,7 +79,7 @@ fun BudgetCard(
         Column(
             modifier = Modifier
                 .weight(1f)
-                .fillMaxHeight(),
+                .fillMaxWidth(),
             verticalArrangement = Arrangement.SpaceBetween,
         ) {
             Row(

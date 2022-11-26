@@ -10,10 +10,12 @@ import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.List
 import androidx.compose.material.icons.outlined.Star
 import com.tourguide.presentation.navigation.models.BottomNavigationItem
-import com.tourguide.domain.model.Tour
 
 object Constants {
-    const val BaseUrl = "http://localhost:5000/api/v1/"
+    const val BaseUrl = "http://192.168.0.107:3000/"
+
+    const val TourPicturesBaseUrl = "http://192.168.0.107:3000/img/tours/"
+    const val UserPicturesBaseUrl = "http://192.168.0.107:3000/img/users/"
 
     val BottomNavigationItems = listOf(
         BottomNavigationItem(

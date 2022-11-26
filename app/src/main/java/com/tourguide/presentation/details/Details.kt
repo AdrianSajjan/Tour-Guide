@@ -85,7 +85,7 @@ fun TourDetailScreen(
                                 modifier = Modifier.width(2.dp)
                             )
                             Body(
-                                text = tour.startLocation.address,
+                                text = tour.startLocation.description,
                                 color = MaterialTheme.colors.primary,
                                 bodyVariant = BodyVariant.Secondary
                             )
@@ -100,7 +100,7 @@ fun TourDetailScreen(
                             fontWeight = FontWeight.Medium,
                             color = MaterialTheme.colors.onSurface
                         )
-                        Description(description = tour.summary)
+                        Description(description = tour.description)
                     }
                     Spacer(modifier = Modifier.height(48.dp))
                     Row(

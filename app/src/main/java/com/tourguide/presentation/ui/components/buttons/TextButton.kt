@@ -37,9 +37,9 @@ fun TextButton(
                         try {
                             isPressed = true
                             awaitRelease()
+                            onClick()
                         } finally {
                             isPressed = false
-                            onClick()
                         }
                     }
                 )

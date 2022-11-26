@@ -12,6 +12,7 @@ data class Tour (
     val averageRating: Double,
     val price: Double,
     val summary: String,
+    val description: String,
     val thumbnail: String,
     val images: List<String>,
     val startDates: List<Date>,
