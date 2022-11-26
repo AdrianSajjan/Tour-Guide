@@ -7,8 +7,8 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
 import androidx.core.view.WindowCompat
 import androidx.navigation.compose.rememberNavController
-import com.tourguide.presentation.ui.navigation.components.BottomNavigationBar
-import com.tourguide.presentation.ui.navigation.NavigationHostController
+import com.tourguide.presentation.navigation.components.BottomNavigationBar
+import com.tourguide.presentation.navigation.NavigationHostController
 import com.tourguide.presentation.ui.theme.TourGuideTheme
 
 class MainActivity : ComponentActivity() {

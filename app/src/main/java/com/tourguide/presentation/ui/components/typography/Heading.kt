@@ -19,12 +19,11 @@ fun Heading(
     textAlign: TextAlign = TextAlign.Left,
     modifier: Modifier = Modifier
 ) {
-    val style = if(headingVariant == HeadingVariant.Large)
-                    MaterialTheme.typography.h1
-                else if(headingVariant == HeadingVariant.Medium)
-                    MaterialTheme.typography.h2
-                else
-                    MaterialTheme.typography.h3
+    val style = when(headingVariant) {
+        HeadingVariant.Large -> MaterialTheme.typography.h1
+        HeadingVariant.Medium -> MaterialTheme.typography.h2
+        else -> MaterialTheme.typography.h3
+    }
 
     Text(text = text, style = style, fontWeight = fontWeight, color = color, textAlign = textAlign, modifier = modifier)
 }

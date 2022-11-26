@@ -1,11 +1,20 @@
 package com.tourguide.data.dto
 
 import com.google.gson.annotations.SerializedName
+import com.tourguide.domain.model.User
 
 data class UserDto(
-    @SerializedName("_id")
-    val id: String,
+    val _id: String,
     val email: String,
     val name: String,
     val role: String
 )
+
+fun UserDto.toUser(): User {
+    return User(
+        id = _id,
+        email = email,
+        name = name,
+        role = role,
+    )
+}
