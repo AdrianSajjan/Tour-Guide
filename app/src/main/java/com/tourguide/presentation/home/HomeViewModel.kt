@@ -1,6 +1,5 @@
 package com.tourguide.presentation.home
 
-import android.util.Log
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
@@ -8,10 +7,8 @@ import androidx.lifecycle.viewModelScope
 import com.tourguide.core.common.Resource
 import com.tourguide.domain.use_case.get_budget_tours.GetBudgetToursUseCase
 import com.tourguide.domain.use_case.get_tours.GetToursUseCase
-import com.tourguide.presentation.home.state.HomeState
 import com.tourguide.presentation.home.state.TourListState
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.forEach
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import javax.inject.Inject

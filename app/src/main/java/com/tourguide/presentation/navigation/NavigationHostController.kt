@@ -57,10 +57,8 @@ fun NavigationHostController(
                     }
                 )
             }
-            composable("Details/{id}") { stack ->
-                val id = stack.arguments?.getString("id");
+            composable("Details/{tourId}") {
                 TourDetailScreen(
-                    id = id!!,
                     onNavigateToPrevious = {
                         navigationController.popBackStack()
                     }

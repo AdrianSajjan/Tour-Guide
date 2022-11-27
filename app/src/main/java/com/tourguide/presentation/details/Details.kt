@@ -15,10 +15,12 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.em
+import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.rememberAsyncImagePainter
 import coil.request.ImageRequest
 import com.google.accompanist.systemuicontroller.rememberSystemUiController
-import com.tourguide.domain.model.Tour
+import com.tourguide.core.common.Constants
 import com.tourguide.presentation.details.components.description.Description
 import com.tourguide.presentation.ui.components.buttons.PrimaryButton
 import com.tourguide.presentation.ui.components.typography.*
@@ -26,12 +28,13 @@ import com.tourguide.presentation.ui.components.typography.*
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun TourDetailScreen(
-    id: String,
-    onNavigateToPrevious: () -> Unit
+    onNavigateToPrevious: () -> Unit,
+    viewModel: DetailsViewModel = hiltViewModel(),
 ) {
-    val tour:Tour? = null
+    val state = viewModel.state.value
 
     val systemUiController = rememberSystemUiController()
+
     val bottomSheetScaffoldState = rememberBottomSheetScaffoldState(
         bottomSheetState = rememberBottomSheetState(
             initialValue = BottomSheetValue.Collapsed
@@ -40,16 +43,11 @@ fun TourDetailScreen(
 
     systemUiController.setStatusBarColor(Color.Transparent, true)
 
-    if(tour != null) {
+    if(state.tour != null) {
         BottomSheetScaffold(
             {
                 Column(
-                    modifier = Modifier.padding(
-                        top = 12.dp,
-                        bottom = 24.dp,
-                        start = 24.dp,
-                        end = 24.dp
-                    )
+                    modifier = Modifier.padding(top = 12.dp, bottom = 24.dp, start = 24.dp, end = 24.dp)
                 ) {
                     Row(
                         modifier = Modifier.fillMaxWidth(),
@@ -69,7 +67,8 @@ fun TourDetailScreen(
                         verticalAlignment = Alignment.CenterVertically,
                     ) {
                         Column {
-                            Heading(text = tour.name, headingVariant = HeadingVariant.Medium)
+                            Heading(text = state.tour.name, headingVariant = HeadingVariant.Medium)
+                            Body(text = "Duration - ${state.tour.duration} days")
                         }
                         Row(
                             horizontalArrangement = Arrangement.End,
@@ -85,7 +84,7 @@ fun TourDetailScreen(
                                 modifier = Modifier.width(2.dp)
                             )
                             Body(
-                                text = tour.startLocation.description,
+                                text = state.tour.startLocation.description,
                                 color = MaterialTheme.colors.primary,
                                 bodyVariant = BodyVariant.Secondary
                             )
@@ -93,14 +92,29 @@ fun TourDetailScreen(
                     }
                     Spacer(modifier = Modifier.height(36.dp))
                     Column(
-                        verticalArrangement = Arrangement.spacedBy(8.dp),
+                        verticalArrangement = Arrangement.spacedBy(4.dp),
+                    ) {
+                        Body(
+                            text = "Summary",
+                            fontWeight = FontWeight.Medium,
+                            color = MaterialTheme.colors.onSurface
+                        )
+                        Body(
+                            text = state.tour.summary,
+                            bodyVariant = BodyVariant.Secondary,
+                            lineHeight = 1.6.em
+                        )
+                    }
+                    Spacer(modifier = Modifier.height(36.dp))
+                    Column(
+                        verticalArrangement = Arrangement.spacedBy(4.dp),
                     ) {
                         Body(
                             text = "Description",
                             fontWeight = FontWeight.Medium,
                             color = MaterialTheme.colors.onSurface
                         )
-                        Description(description = tour.description)
+                        Description(description = state.tour.description.substring(0, 200))
                     }
                     Spacer(modifier = Modifier.height(48.dp))
                     Row(
@@ -115,7 +129,7 @@ fun TourDetailScreen(
                                 fontWeight = FontWeight.Medium
                             )
                             Heading(
-                                text = "INR ${String.format("%1$,.2f",  tour.price)}",
+                                text = "INR ${String.format("%1$,.2f",  state.tour.price)}",
                                 fontWeight = FontWeight.Medium,
                                 color = MaterialTheme.colors.primary,
                                 headingVariant = HeadingVariant.Small
@@ -137,7 +151,7 @@ fun TourDetailScreen(
                 Image(
                     painter = rememberAsyncImagePainter(
                         model = ImageRequest.Builder(LocalContext.current)
-                            .data(tour.thumbnail)
+                            .data(Constants.TourPicturesBaseUrl + state.tour.thumbnail)
                             .crossfade(true)
                             .build()
                     ),
@@ -146,7 +160,9 @@ fun TourDetailScreen(
                     modifier = Modifier.fillMaxHeight()
                 )
                 Row(
-                    modifier = Modifier.statusBarsPadding().padding(vertical = 8.dp, horizontal = 24.dp)
+                    modifier = Modifier
+                        .statusBarsPadding()
+                        .padding(vertical = 8.dp, horizontal = 24.dp)
                 ) {
                     IconButton(onClick = onNavigateToPrevious, modifier = Modifier.background(MaterialTheme.colors.background, MaterialTheme.shapes.large)) {
                         Icon(imageVector = Icons.Filled.ArrowBack, contentDescription = "Back", tint = MaterialTheme.colors.onSurface)

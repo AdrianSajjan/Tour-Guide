@@ -41,7 +41,7 @@ fun BudgetCard(
                         try {
                             isPressed = true
                             awaitRelease()
-                            onClick(tour.name)
+                            onClick(tour.id)
                         } finally {
                             isPressed = false
                         }

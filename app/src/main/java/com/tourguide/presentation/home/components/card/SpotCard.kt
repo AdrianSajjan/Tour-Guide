@@ -43,7 +43,7 @@ fun SpotCard(
                         try {
                             isPressed = true
                             awaitRelease()
-                            onClick(tour.name)
+                            onClick(tour.id)
                         } finally {
                             isPressed = false
                         }
@@ -72,7 +72,7 @@ fun SpotCard(
                     .height(140.dp)
                     .fillMaxWidth()
                     .clip(shape = MaterialTheme.shapes.medium)
-                    .defaultMinSize(minWidth = 220.dp),
+                    .width(250.dp)
             )
             Row(
                 horizontalArrangement = Arrangement.End,

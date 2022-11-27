@@ -17,6 +17,8 @@ object Constants {
     const val TourPicturesBaseUrl = "http://192.168.0.107:3000/img/tours/"
     const val UserPicturesBaseUrl = "http://192.168.0.107:3000/img/users/"
 
+    const val ParamTourId = "tourId"
+
     val BottomNavigationItems = listOf(
         BottomNavigationItem(
             label = "Home",
