@@ -18,6 +18,7 @@ data class Tour (
     val startDates: List<Date>,
     val startLocation: Location,
     val locations: List<Location>,
+    val guides: List<User>,
 )
 
 

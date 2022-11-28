@@ -6,7 +6,8 @@ data class UserDto(
     val _id: String,
     val email: String,
     val name: String,
-    val role: String
+    val role: String,
+    val photo: String,
 )
 
 fun UserDto.toUser(): User {
@@ -15,5 +16,6 @@ fun UserDto.toUser(): User {
         email = email,
         name = name,
         role = role,
+        photo = photo,
     )
 }

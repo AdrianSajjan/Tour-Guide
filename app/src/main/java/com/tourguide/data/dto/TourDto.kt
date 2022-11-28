@@ -2,13 +2,14 @@ package com.tourguide.data.dto
 
 import com.tourguide.domain.model.Location
 import com.tourguide.domain.model.Tour
+import com.tourguide.domain.model.User
 import java.util.*
 
 data class TourDto(
     val difficulty: String,
     val duration: Int,
     val durationWeeks: Double,
-    val guides: List<Any>,
+    val guides: List<User>,
     val id: String,
     val imageCover: String,
     val images: List<String>,
@@ -24,7 +25,7 @@ data class TourDto(
     val slug: String,
     val startDates: List<Date>,
     val startLocation: Location,
-    val summary: String
+    val summary: String,
 )
 
 fun TourDto.toTour(): Tour {
@@ -44,5 +45,6 @@ fun TourDto.toTour(): Tour {
          startDates = startDates,
          startLocation = startLocation,
          locations = locations,
+         guides = guides,
     )
 }

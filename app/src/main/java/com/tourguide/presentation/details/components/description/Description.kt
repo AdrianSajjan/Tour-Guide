@@ -13,15 +13,15 @@ import com.tourguide.presentation.ui.theme.Montserrat
 @Composable
 fun Description(
     description:String,
+    onClick: () -> Unit,
+    expanded: Boolean,
 ) {
     val annotatedText = buildAnnotatedString {
-
         pushStyle(
             style = ParagraphStyle(
                 lineHeight = 1.6.em,
             )
         )
-
         pushStyle(
             style = SpanStyle(
                 color = MaterialTheme.colors.onBackground,
@@ -29,9 +29,7 @@ fun Description(
 
             ),
         )
-
-        append(description)
-
+        append(if(expanded) description else description.substring(0, 200))
         pushStringAnnotation(
             tag = "ReadMore",
             annotation = "ReadMore"
@@ -42,12 +40,10 @@ fun Description(
                 fontFamily = Montserrat
             )
         ) {
-            append(" Read More")
+            append(if(expanded) " Read Less" else " Read More")
         }
-
         pop()
     }
-
     ClickableText(
         text = annotatedText,
         onClick = { offset ->
@@ -56,7 +52,7 @@ fun Description(
                 start = offset,
                 end = offset
             ).firstOrNull()?.let {
-
+                    onClick()
             }
         }
     )
